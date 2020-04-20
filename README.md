@@ -1,1 +1,2 @@
-Repository för projektarbete Team Blå shopizer API och GUI-tester
+# shopizer-tests
+Repository för Team Blå projektarbete shopizer API och GUI-tester.
