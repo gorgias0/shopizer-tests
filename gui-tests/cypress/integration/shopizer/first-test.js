@@ -7,13 +7,16 @@ describe("Test shopizer", function() {
     });
 
     it("First test", function() {
-        //cy.get("li").find("nth-child(2) > a").click();
-        //cy.get("li:nth-child(2) > a").click();
-        cy.get("a").contains("Find owners").click();
-        cy.get("#lastName").type("Est");
-        cy.get('[type="submit"]').click();
-        cy.contains("Carlos Estaban");
-        cy.contains("Waunakee");
+        cy.get("a").contains("Laptop Bags").click();
+        
+        cy.get('a[productid="2"]').first().click();
+        cy.get('#miniCartDetails > li.checkout-bg > a').click({force:true});
+        cy.get('a').contains('Proceed to checkout').click();
+
+        //cy.get('a').should('have.attribute', '[productid="2"]').click();
+        //cy.get('[type="submit"]').click();
+        //cy.contains("Carlos Estaban");
+        //cy.contains("Waunakee");
     });
 
 
