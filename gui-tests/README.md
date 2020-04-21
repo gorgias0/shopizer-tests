@@ -1,1 +1,1 @@
-"mapp f”r gui-tester" 
+"mapp fÃ¶r gui-tester" 
