@@ -13,6 +13,8 @@ describe("Test shopizer", function() {
         cy.get('#miniCartDetails > li.checkout-bg > a').click({force:true});
         cy.get('a').contains('Proceed to checkout').click();
 
+        //
+
     });
 
 
