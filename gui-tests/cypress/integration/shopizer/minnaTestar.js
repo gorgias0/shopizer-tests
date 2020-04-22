@@ -1,10 +1,11 @@
 beforeEach(() => {
-    cy.visit('http://localhost:8080/shop/');
+    adminLogin();
+    cy.visit('http://localhost:8080/shop');
   })
 
 describe('Testar lite', () => {
     it('Does not do much!', () => { 
-        cy.get('#featuredItemsContainer > div:nth-child(1) > div.product-content.text-center > div > div > a').click(); //Ändra selector
+        cy.get('#featuredItemsContainer > div:nth-child(1) > div.product-content.text-center > div > div > a').click(); //Ändra selektor
         //lägg till assert att varukorg visar 1
         cy.get('#miniCartDetails > li.checkout-bg > a').click({force:true});
         //lägg till assert på rätt produkt, price och total
@@ -16,8 +17,15 @@ describe('Testar lite', () => {
         cy.get('[name = "customer.billing.postalCode"]').type('12345');
         cy.get('[name = "customer.emailAddress"]').type('testan@testsson.se');
         cy.get('[name = "customer.billing.phone"]').type('0701234567');
-        //Finns ingen knapp att gå vidare härifrån?
+        cy.get('#submitOrder').click();
     })
 
    
   })
+
+  function adminLogin(){
+    cy.visit('http://localhost:8080/admin');
+    cy.get('#username').type('admin');
+    cy.get('#password').type('password');
+    cy.get('#formSubmitButton').click();
+  }
