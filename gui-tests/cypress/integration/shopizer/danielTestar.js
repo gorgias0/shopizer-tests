@@ -14,23 +14,27 @@ describe("Test shopizer", function() {
         cy.get('a').contains('Proceed to checkout').click();
     });
 
-    it.only('create account', () => {
+    it.only('can\'t create account when already exists', () => {
+
+        // go to registration
         cy.contains('My Account').click();
         cy.get('#registerLink').click();
-        cy.get('[name = "billing.firstName"]').type('Testan');
-        cy.get('[name = "billing.lastName"]').type('Testsson');
+
+        // enter data in form
+        cy.get('[name = "billing.firstName"]').type('John');
+        cy.get('[name = "billing.lastName"]').type('Doe');
         cy.get('#registration_country').select('Sweden');
         cy.get('[name = "billing.stateProvince"]').type('Teststaden');
-        cy.get('[name = "emailAddress"]').type('testan2@testsson.se');
+        cy.get('[name = "emailAddress"]').type('test@gmail.com'); 
         cy.get('[name = "password"]').type('password1');
         cy.get('#passwordAgain').type('password1');
 
-        // submit form
+        // click submit button
         cy.get('[type="submit"]').click();
 
-        // open my account info
-        //cy.get('a').contains('My Account').click()
-        //cy.get('#customer.errors').
+        // assert error message is displayed
+        cy.get('div.alert').should('contain', 'already exists');
+
    })
 
 
