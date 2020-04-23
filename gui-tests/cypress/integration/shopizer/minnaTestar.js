@@ -3,8 +3,8 @@ beforeEach(() => {
     cy.visit('http://localhost:8080/shop');
   })
 
-describe('Testar lite', () => {
-    it('Does not do much!', () => { 
+describe('GUI tests for Shopizer', () => {
+    it('makes purchase without creating account', () => { 
         cy.get('#featuredItemsContainer > div:nth-child(1) > div.product-content.text-center > div > div > a').click(); //Ändra selektor
         //lägg till assert att varukorg visar 1
         cy.get('#miniCartDetails > li.checkout-bg > a').click({force:true});
@@ -20,7 +20,19 @@ describe('Testar lite', () => {
         cy.get('#submitOrder').click();
     })
 
-   
+   it('creates account', () => {
+        cy.contains('My Account').click();
+        cy.get('#registerLink').click();
+        cy.get('[name = "billing.firstName"]').type('Testan');
+        cy.get('[name = "billing.lastName"]').type('Testsson');
+        cy.get('[name = "billing.stateProvince"]').type('Teststaden');
+        cy.get('[name = "emailAddress"]').type('testan@testsson.se');
+        cy.get('[name = "password"]').type('password1');
+        cy.get('#passwordAgain').type('password1');
+
+
+   })
+
   })
 
   function adminLogin(){
