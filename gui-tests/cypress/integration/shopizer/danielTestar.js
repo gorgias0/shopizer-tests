@@ -6,15 +6,32 @@ describe("Test shopizer", function() {
         cy.visit(url);
     });
 
-     it("First test", function() {
-        cy.get("a").contains("Laptop Bags").click();
-        
+     it.only("Test shoppingcart", function() {
+        cy.get("a").contains("Bags").click();
         cy.get('a[productid="2"]').first().click();
-        cy.get('#miniCartDetails > li.checkout-bg > a').click({force:true});
-        cy.get('a').contains('Proceed to checkout').click();
+
+        // one item in cart
+        cy.get('#miniCartSummary').should('contain', '1');
+
+        // two items in cart
+        cy.get('a[productid="3"]').first().click();
+        cy.get('#miniCartSummary').should('contain', '2');
+
+        // three items in cart
+        cy.get('a[productid="3"]').first().click();
+        cy.get('#miniCartSummary').should('contain', '3');
+
+        // remove one
+        cy.get('.cart-del > button').first().click({force:true});
+        cy.get('#miniCartSummary').should('contain', '2');
+
+        // remove last two
+        cy.get('.cart-del > button').first().click({force:true});
+        cy.get('#miniCartSummary').should('contain', '0');
+
     });
 
-    it.only('can\'t create account when already exists', () => {
+    it('Can\'t create account when already exists', () => {
 
         // go to registration
         cy.contains('My Account').click();
