@@ -1,0 +1,19 @@
+[{
+    "firstName": "Testan",
+    "lastName": "Testsson",
+    "address": "Testvägen 1",
+    "city": "Teststaden",
+    "postalCode": "12345",
+    "emailAddress": "testan@testsson.se",
+    "phone": "0701112233"
+},
+{
+    "firstName": "Testan2",
+    "lastName": "Testsson2",
+    "address": "Testvägen 2",
+    "city": "Teststaden2",
+    "postalCode": "12345",
+    "emailAddress": "testan2@testsson.se",
+    "phone": "0701112244"
+}
+]
