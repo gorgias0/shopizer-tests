@@ -8,13 +8,13 @@ describe("Test shopizer", function() {
 
      it.only("Test shoppingcart", function() {
         cy.get("a").contains("Bags").click();
-        cy.get('a[productid="2"]').first().click();
+        cy.get('a[productid="1"]').first().click();
 
         // one item in cart
         cy.get('#miniCartSummary').should('contain', '1');
 
         // two items in cart
-        cy.get('a[productid="3"]').first().click();
+        cy.get('a[productid="2"]').first().click();
         cy.get('#miniCartSummary').should('contain', '2');
 
         // three items in cart
@@ -25,9 +25,16 @@ describe("Test shopizer", function() {
         cy.get('.cart-del > button').first().click({force:true});
         cy.get('#miniCartSummary').should('contain', '2');
 
-        // remove last two
+        // remove two
+        cy.get('.cart-del > button').first().click({force:true});
+        cy.get('#miniCartSummary').should('contain', '1');
+
+        // remove three
         cy.get('.cart-del > button').first().click({force:true});
         cy.get('#miniCartSummary').should('contain', '0');
+
+        //var a = cy.get('.cart-del > button');
+        //expect(a).to.be.null;
 
     });
 
