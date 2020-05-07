@@ -8,7 +8,35 @@ describe("Test shopizer", function () {
         cy.visit(url);
     });
 
+    it('Se produkter', () => {
 
+        //ASSERT PÅ STARTSIDAN
+        cy.url().should('include', '/shop/');
+        cy.get('body').should('contain', 'Featured items');
+
+        //HANDBAGS
+        cy.contains('Handbags').click({ force: true });
+        cy.url().should('include', '/shop/category/handbags');
+        cy.get('h2').should('contain', 'Handbags');
+        //SPECIFIK HANDBAG
+        cy.get('body').should('contain', 'Vintage courier bag');
+
+        //LAPTOP BAGS
+        cy.contains('Laptop Bags').click({ force: true });
+        cy.url().should('include', '/shop/category/laptop-bags');
+        cy.get('h2').should('contain', 'Laptop Bags');
+        //SPECIFIK HANDBAG
+        cy.get('body').should('contain', 'Vintage laptop bag');
+
+        //BEACH BAGS
+        cy.contains('Beach bags').click({ force: true });
+        cy.url().should('include', '/shop/category/beach-bags');
+        cy.get('h2').should('contain', 'Beach bags');
+        //SPECIFIK HANDBAG
+        cy.get('body').should('contain', 'Vintage beach bag');
+
+
+    })
 
 
     it('Göra ett köp utan att logga in', () => {
