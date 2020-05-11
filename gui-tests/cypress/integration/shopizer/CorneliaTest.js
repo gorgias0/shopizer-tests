@@ -1,39 +1,68 @@
 describe('My First Test', function () {
 
-    this.beforeEach('open shopizer', function () {
-        const url = "http://localhost:8080/shop/"
-        cy.visit(url);
-    });
+    // this.beforeEach('open shopizer', function () {
+    //     const url = "http://localhost:8080/shop/"
+    //     cy.visit(url);
+    // });
 
-    it('Se produkter', () => {
+    it('Se butikens kunder', () => {
 
-        //ASSERT PÅ STARTSIDAN
-        cy.url().should('include', '/shop/');
-        cy.get('body').should('contain', 'Featured items');
+        cy.visit("http://localhost:8080/admin/logon.html");
+        cy.url().should('include', '/admin')
+        cy.get('#username').type('admin@shopizer.com ');
+        cy.get('#password').type('password');
 
-        //HANDBAGS
-        cy.contains('Handbags').click({ force: true });
-        cy.url().should('include', '/shop/category/handbags');
-        cy.get('h2').should('contain', 'Handbags');
-        //SPECIFIK HANDBAG
-        cy.get('body').should('contain', 'Vintage courier bag');
+        cy.get('#formSubmitButton').click();
+        cy.url().should('include', '/home')
 
-        //LAPTOP BAGS
-        cy.contains('Laptop Bags').click({ force: true });
-        cy.url().should('include', '/shop/category/laptop-bags');
-        cy.get('h2').should('contain', 'Laptop Bags');
-        //SPECIFIK HANDBAG
-        cy.get('body').should('contain', 'Vintage laptop bag');
+        cy.contains('Customers').click({force: true});
+        cy.url().should('include', 'customers/list')
+        cy.get('h3').should('contain', 'Customer list');
 
-        //BEACH BAGS
-        cy.contains('Beach bags').click({ force: true });
-        cy.url().should('include', '/shop/category/beach-bags');
-        cy.get('h2').should('contain', 'Beach bags');
-        //SPECIFIK HANDBAG
-        cy.get('body').should('contain', 'Vintage beach bag');
+     })
+
+    it('Privata kunduppgifter', () => {
+
+        cy.url().should('include', '/shop');
+        cy.contains('Sign in').click({ force: true });
+        cy.url().should('include', 'customLogon');
+        cy.get('#signin_userName').type('test@gmail.com'); //Ska vara samma som i US7(?)
+        cy.get('#signin_password').type('12346');
+        cy.contains('Sign in').click({force: true});
+        //Assert på att det går fel
+
+     })
 
 
-    })
+    // it('Se produkter', () => {
+
+    //     //ASSERT PÅ STARTSIDAN
+    //     cy.url().should('include', '/shop/');
+    //     cy.get('body').should('contain', 'Featured items');
+
+    //     //HANDBAGS
+    //     cy.contains('Handbags').click({ force: true });
+    //     cy.url().should('include', '/shop/category/handbags');
+    //     cy.get('h2').should('contain', 'Handbags');
+    //     //SPECIFIK HANDBAG
+    //     cy.get('body').should('contain', 'Vintage courier bag');
+
+    //     //LAPTOP BAGS
+    //     cy.contains('Laptop Bags').click({ force: true });
+    //     cy.url().should('include', '/shop/category/laptop-bags');
+    //     cy.get('h2').should('contain', 'Laptop Bags');
+    //     //SPECIFIK HANDBAG
+    //     cy.get('body').should('contain', 'Vintage laptop bag');
+
+    //     //BEACH BAGS
+    //     cy.contains('Beach bags').click({ force: true });
+    //     cy.url().should('include', '/shop/category/beach-bags');
+    //     cy.get('h2').should('contain', 'Beach bags');
+    //     //SPECIFIK HANDBAG
+    //     cy.get('body').should('contain', 'Vintage beach bag');
+
+
+    // })
 
     // it('Göra ett köp utan att logga in', () => {
         

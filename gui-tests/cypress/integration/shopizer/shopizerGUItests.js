@@ -8,6 +8,19 @@ describe("Test shopizer", function () {
         cy.visit(url);
     });
 
+    //Ej klar
+    it('Privata kunduppgifter', () => {
+
+        cy.url().should('include', '/shop');
+        cy.contains('Sign in').click({ force: true });
+        cy.url().should('include', 'customLogon');
+        cy.get('#signin_userName').type('test@gmail.com'); //Ska vara samma som i US7(?)
+        cy.get('#signin_password').type('12346');
+        cy.contains('Sign in').click({force: true});
+        //Assert på att det går fel
+
+     })
+
     it('Se produkter', () => {
 
         //ASSERT PÅ STARTSIDAN
@@ -34,8 +47,7 @@ describe("Test shopizer", function () {
         cy.get('h2').should('contain', 'Beach bags');
         //SPECIFIK HANDBAG
         cy.get('body').should('contain', 'Vintage beach bag');
-
-
+        
     })
 
 
