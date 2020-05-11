@@ -53,8 +53,8 @@ describe("Test shopizer", function () {
 
     it('Göra ett köp utan att logga in', () => {
 
-        //Lägg produkt 7 i varukorg
-        cy.get('[productid = "7"]').click();
+        //Lägg produkt 1 i varukorg
+        cy.get('[productid = "1"]').click();
 
         //assert att varukorgen fick en etta för hur många varor    
         cy.get('#miniCartSummary').should($el => expect($el.text().trim()).to.equal('1'));

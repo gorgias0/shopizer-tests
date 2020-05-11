@@ -1,931 +1,33 @@
 {
 	"info": {
-		"_postman_id": "f64d2a99-a325-4f5f-bf65-1488e47181c0",
-		"name": "Shopizer API tests",
+		"_postman_id": "029de59e-029e-42e7-83b1-5601a9148c95",
+		"name": "Shopizer API Test Demo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "KundkorgsTester",
+			"name": "Se Produkter",
 			"item": [
 				{
-					"name": "Hämta kundkorg med Id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/customers/{id}/cart",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"customers",
-								"{id}",
-								"cart"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Lägg till produkt i specifik kundkorg",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/customers/{id}/cart",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"customers",
-								"{id}",
-								"cart"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Sprint 2 Demo",
-			"item": [
-				{
-					"name": "Admin",
-					"item": [
-						{
-							"name": "Hämta Auth Token",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "25747541-2c81-41bb-9ecf-75dbc76d4d89",
-										"exec": [
-											"",
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"var jsonData = pm.response.json();",
-											"    ",
-											"pm.test(\"Could get token\", function () {",
-											"    pm.expect(jsonData.token).to.be.not.null;",
-											"});",
-											"",
-											"pm.environment.set(\"token\", jsonData.token);",
-											"",
-											"pm.environment.set(\"adminID\", jsonData.id);",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{ \"password\": \"password\", \"username\": \"admin@shopizer.com\"}",
-									"options": {
-										"raw": {}
-									}
-								},
-								"url": {
-									"raw": "{{url}}/api/v1/private/login",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"private",
-										"login"
-									],
-									"query": [
-										{
-											"key": "devicePlatform",
-											"value": "UNKNOWN",
-											"disabled": true
-										},
-										{
-											"key": "mobile",
-											"value": "false",
-											"disabled": true
-										},
-										{
-											"key": "normal",
-											"value": "true",
-											"disabled": true
-										},
-										{
-											"key": "tablet",
-											"value": "false",
-											"disabled": true
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Lista kunder MP",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "834f07fc-379d-4caf-a0d3-24a58a888562",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"John Doe exists\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"test@gmail.com\");",
-											"});",
-											"",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/v1/private/customers",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"private",
-										"customers"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Se alla ordrar",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "98a176ef-f94b-43b1-aef8-fb05f7cdd0f6",
-										"exec": [
-											"pm.test(\"Status code is 202\", function () {",
-											"    pm.response.to.have.status(202);",
-											"});",
-											"",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/v1/private/orders",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"private",
-										"orders"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Se admin konto",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "006300d8-0da3-4142-b57f-0ea7cadc87a2",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"firstName is Administrator\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.firstName).to.eql(\"Administrator\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/v1/private/user/profile",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"private",
-										"user",
-										"profile"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Byt lösenord för admin med fel lösen",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "a24c5b6a-8ff7-46f8-bcf6-e892469b1210",
-										"exec": [
-											"pm.test(\"Error message is: password does not match\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.message).to.eql(\"Actual password does not match for user [\" +pm.environment.get(\"adminID\") +\"]\");",
-											"});",
-											"",
-											"pm.test(\"Status code is 400\", function () {",
-											"    pm.response.to.have.status(400);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"changePassword\": \"12345aA\",\r\n  \"password\": \"wrongPassword\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url}}/api/v1/private/user/{{adminID}}/password",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"private",
-										"user",
-										"{{adminID}}",
-										"password"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Se ordrar för kund med id",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/v1/private/orders/customers/50",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"private",
-										"orders",
-										"customers",
-										"50"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "Produkter",
-					"item": [
-						{
-							"name": "Lista alla produkter MP",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "6d49af79-265d-4753-9c0a-7f914e0d2cbc",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"var jsonData = pm.response.json();",
-											"",
-											"pm.test(\"10 records found\", function () {",
-											"    pm.expect(jsonData.recordsTotal).to.eql(10);",
-											"});",
-											"",
-											"pm.test(\"Body contains: Vintage beach bag\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"Vintage beach bag\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url}}/api/v1/products",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"products"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Lista alla produkter från manufacturer 52",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "cd183ebd-9c5e-40d4-9d51-0f69a5bedae1",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"var jsonData = pm.response.json();",
-											"",
-											"pm.test(\"All products have manufacturer with id 52\", function() {",
-											"    for(i = 0; i < jsonData.products.length; i++) {",
-											"        pm.expect(jsonData.products[i].manufacturer.id).to.eql(52);",
-											"    }",
-											"});",
-											"",
-											"pm.test(\"4 records found\", function () {",
-											"    pm.expect(jsonData.recordsTotal).to.eql(4);",
-											"});",
-											"",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/v1/products?manufacturer=52",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"products"
-									],
-									"query": [
-										{
-											"key": "manufacturer",
-											"value": "52"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "KundkorgsTester",
-					"item": [
-						{
-							"name": "Contact",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "45531585-ef65-468c-88f2-8d122770abb0",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Response time is less than 200ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);",
-											"});",
-											"",
-											"//Gör att det inte funkar:",
-											"//var jsonData = pm.response.json();",
-											"",
-											"pm.test(\"Body contains: Contact form sent\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"contact form sent\");",
-											"});",
-											"",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"comment\": \"string\",\r\n  \"email\": \"string\",\r\n  \"name\": \"string\",\r\n  \"subject\": \"string\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/v1/contact",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"contact"
-									],
-									"query": [
-										{
-											"key": "",
-											"value": "",
-											"disabled": true
-										}
-									]
-								},
-								"description": "Cornelia testar Contact"
-							},
-							"response": []
-						},
-						{
-							"name": "HT: Lägg i kundkorg",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "02739285-b92b-4d12-b908-d8f5a68a62fe",
-										"exec": [
-											"var jsonData = pm.response.json();",
-											" ",
-											"pm.test(\"Status code is 201\", function () {",
-											"    pm.response.to.have.status(201);",
-											"});",
-											"",
-											"pm.test(\"Response time is less than 300ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(300);",
-											"});",
-											"    ",
-											"pm.environment.set(\"kundvagns-code\", jsonData.code);",
-											"",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"product\":1,\n\t\"quantity\":1\n\t\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url}}/api/v1/cart",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"cart"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "HT: Hämta kundkorg via code",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/v1/cart/{{kundvagns-code}}",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"cart",
-										"{{kundvagns-code}}"
-									]
-								},
-								"description": "elena testar: Hämta kundkorg via code\n"
-							},
-							"response": []
-						},
-						{
-							"name": "HT: Lägg till i befintlig kundkorg",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "59a456cf-dddd-4716-995f-087d66427a55",
-										"exec": [
-											"pm.test(\"Response time is less than 200ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);",
-											"});",
-											"",
-											"pm.test(\"Status code is 201\", function () {",
-											"    pm.response.to.have.status(201);",
-											"});",
-											"",
-											"var jsonData = pm.response.json();",
-											"",
-											"pm.test(\"Quantity is 2\", function () {",
-											"    pm.expect(jsonData.quantity).to.eql(2);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"product\":2,\n\t\"quantity\":1\n} ",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url}}/api/v1/cart/{{kundvagns-code}}",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"cart",
-										"{{kundvagns-code}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "HT: Ta bort produkt från kundkorg",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "f14a9e26-0cd1-4783-9120-94b3b5f1b148",
-										"exec": [
-											"pm.test(\"Response time is less than 300ms\", function () {",
-											"    pm.expect(pm.response.responseTime).to.be.below(300);",
-											"});",
-											"",
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/v1/cart/{{kundvagns-code}}/product/2",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"cart",
-										"{{kundvagns-code}}",
-										"product",
-										"2"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "Kundkonto",
-					"item": [
-						{
-							"name": "Skapa kundkonto",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "256e1d27-4db5-4b6c-aa1f-8089970fd83f",
-										"exec": [
-											"",
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"var jsonData = pm.response.json();",
-											"",
-											"pm.test(\"Customer was registered\", function () {",
-											"    if (pm.expect(jsonData.errorCode).to.not.eql(null)) { // spara env-variabler endast om registreringen lyckas",
-											"        pm.environment.set(\"new_customer_id\", jsonData.id);",
-											"        pm.environment.set(\"new_customer_token\", jsonData.token);",
-											"    }",
-											"});",
-											"",
-											"",
-											"",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"attributes\": [\r\n\r\n  ],\r\n  \"billing\": {\r\n    \"address\": \"string\",\r\n    \"billingAddress\": true,\r\n    \"bilstateOther\": \"string\",\r\n    \"city\": \"string\",\r\n    \"company\": \"string\",\r\n    \"country\": \"US\",\r\n    \"countryCode\": \"US\",\r\n    \"firstName\": \"Testkund1\",\r\n    \"lastName\": \"Testkundsson\",\r\n    \"latitude\": \"string\",\r\n    \"longitude\": \"string\",\r\n    \"phone\": \"string\",\r\n    \"postalCode\": \"string\",\r\n    \"stateProvince\": \"string\",\r\n    \"zone\": \"\"\r\n  },\r\n  \"delivery\": {\r\n    \"address\": \"string\",\r\n    \"billingAddress\": true,\r\n    \"bilstateOther\": \"string\",\r\n    \"city\": \"string\",\r\n    \"company\": \"string\",\r\n    \"country\": \"US\",\r\n    \"countryCode\": \"US\",\r\n    \"firstName\": \"string\",\r\n    \"lastName\": \"string\",\r\n    \"latitude\": \"string\",\r\n    \"longitude\": \"string\",\r\n    \"phone\": \"string\",\r\n    \"postalCode\": \"string\",\r\n    \"stateProvince\": \"string\",\r\n    \"zone\": \"\"\r\n  },\r\n  \"emailAddress\": \"test2@test.com\",\r\n  \"firstName\": \"string\",\r\n  \"groups\": [\r\n    {\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"id\": 0,\r\n  \"language\": \"en\",\r\n  \"lastName\": \"string\",\r\n  \"password\": \"password\",\r\n  \"provider\": \"string\",\r\n  \"rating\": 0,\r\n  \"ratingCount\": 0,\r\n  \"storeCode\": \"string\",\r\n  \"userName\": \"string\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url}}/api/v1/customer/register?customer=",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"customer",
-										"register"
-									],
-									"query": [
-										{
-											"key": "customer",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Radera testkund",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "b4e22580-a352-46ff-967d-fa82015de203",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/v1/private/customer/{{new_customer_id}}?token={{token}}",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"private",
-										"customer",
-										"{{new_customer_id}}"
-									],
-									"query": [
-										{
-											"key": "token",
-											"value": "{{token}}"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "Befintligt Kundkonto",
-					"item": [
-						{
-							"name": "kund login",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "12538f54-7130-4295-bd47-4ce1e1f91a7c",
-										"exec": [
-											"",
-											"var jsonData = pm.response.json();",
-											"  ",
-											"pm.environment.set(\"customer_token\", jsonData.token);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{ \"password\": \"password1\", \"username\": \"testan1588062548829@testsson.se\"}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url}}/api/v1/customer/login",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"customer",
-										"login"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Se ordar för kund -fungerar ej",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{customer_token}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{url}}/api/v1/auth/orders",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"auth",
-										"orders"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Se order med id 100 -fungerar ej",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{customer_token}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{url}}/api/v1/auth/orders/100",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"auth",
-										"orders",
-										"100"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "Lista alla ordrar",
+					"name": "Lista alla produkter",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "40ab53cb-5bd6-458b-bab9-2e66fe495056",
+								"id": "6d49af79-265d-4753-9c0a-7f914e0d2cbc",
 								"exec": [
-									"pm.test(\"Status code is 202\", function () {",
-									"    pm.response.to.have.status(202);",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"Body contains orders\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.orders).to.not.be.null;",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"10 records found\", function () {",
+									"    pm.expect(jsonData.recordsTotal).to.eql(10);",
+									"});",
+									"",
+									"pm.test(\"Body contains: Vintage beach bag\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Vintage beach bag\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -936,17 +38,8 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -956,6 +49,131 @@
 								}
 							}
 						},
+						"url": {
+							"raw": "{{url}}/api/v1/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Se ordrar (admin)",
+			"item": [
+				{
+					"name": "Hämta Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "25747541-2c81-41bb-9ecf-75dbc76d4d89",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"    ",
+									"pm.test(\"Could get token\", function () {",
+									"    pm.expect(jsonData.token).to.be.not.null;",
+									"});",
+									"",
+									"pm.environment.set(\"token\", jsonData.token);",
+									"",
+									"pm.environment.set(\"adminID\", jsonData.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"password\": \"password\", \"username\": \"admin@shopizer.com\"}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/private/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"login"
+							],
+							"query": [
+								{
+									"key": "devicePlatform",
+									"value": "UNKNOWN",
+									"disabled": true
+								},
+								{
+									"key": "mobile",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "normal",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "tablet",
+									"value": "false",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Se alla ordrar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "98a176ef-f94b-43b1-aef8-fb05f7cdd0f6",
+								"exec": [
+									"pm.test(\"Status code is 202\", function () {",
+									"    pm.response.to.have.status(202);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
 						"url": {
 							"raw": "{{url}}/api/v1/private/orders",
 							"host": [
@@ -970,21 +188,36 @@
 						}
 					},
 					"response": []
-				},
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Lägg produkter i kundkorg",
+			"item": [
 				{
-					"name": "Storename är korrekt",
+					"name": "Lägg i kundkorg",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "bcdbdf60-4d1b-4756-82d5-76c0c7edcc83",
+								"id": "02739285-b92b-4d12-b908-d8f5a68a62fe",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
+									"var jsonData = pm.response.json();",
+									" ",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
 									"});",
-									"pm.test(\"Storename is correct\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[0].name).to.eql(\"Default store\");",
+									"",
+									"pm.test(\"Response time is less than 300ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(300);",
+									"});",
+									"    ",
+									"pm.environment.set(\"kundvagns-code\", jsonData.code);",
+									"",
+									"",
+									"pm.test(\"Quantity is 1\", function () {",
+									"    pm.expect(jsonData.quantity).to.eql(1);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -992,61 +225,11 @@
 						}
 					],
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/stores",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"stores"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Manufacturers by store",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "b7314c9c-28ef-4b23-8f32-93ff2e6c44e7",
-								"exec": [
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"",
-									"",
-									"pm.test(\"Response time is less than 200ms\", function () {",
-									"    pm.expect(pm.response.responseTime).to.be.below(200);",
-									"});",
-									"",
-									"",
-									"",
-									"pm.test(\"ID is 54\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.id).to.eql(54);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n\t\"product\":1,\n\t\"quantity\":1\n\t\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1054,51 +237,152 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/manufacturers/54",
+							"raw": "{{url}}/api/v1/cart",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"manufacturers",
-								"54"
+								"cart"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Linda testar",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "accept",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"type": "text",
-								"value": "Bearer {{token}}"
+					"name": "Lägg till i befintlig kundkorg",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "59a456cf-dddd-4716-995f-087d66427a55",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Quantity is 2\", function () {",
+									"    pm.expect(jsonData.quantity).to.eql(2);",
+									"});"
+								],
+								"type": "text/javascript"
 							}
-						],
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"product\":2,\n\t\"quantity\":1\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/auth/orders/50",
-							"protocol": "http",
+							"raw": "{{url}}/api/v1/cart/{{kundvagns-code}}",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
-								"auth",
-								"orders",
-								"50"
+								"cart",
+								"{{kundvagns-code}}"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ta bort produkt från kundkorg",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f14a9e26-0cd1-4783-9120-94b3b5f1b148",
+								"exec": [
+									"pm.test(\"Response time is less than 300ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(300);",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/cart/{{kundvagns-code}}/product/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"{{kundvagns-code}}",
+								"product",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hämta kundkorg via code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a4bfff9f-d614-4dbe-a5e7-2fc953f4f52c",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Quantity is 1\", function () {",
+									"    pm.expect(jsonData.quantity).to.eql(1);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/cart/{{kundvagns-code}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"{{kundvagns-code}}"
+							]
+						},
+						"description": "elena testar: Hämta kundkorg via code\n"
 					},
 					"response": []
 				}
@@ -1106,38 +390,161 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Se Produkter",
-			"item": [],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Lägg produkter i kundvagn",
-			"item": [],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Gör ett köp",
-			"item": [],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Se ordrar (admin)",
-			"item": [],
-			"protocolProfileBehavior": {}
-		},
-		{
 			"name": "Mitt konto ska vara privat",
-			"item": [],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Spara varukorg",
-			"item": [],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Spara kundkonto",
-			"item": [],
+			"item": [
+				{
+					"name": "Skapa kundkonto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "720997e7-3db9-41e8-9e72-4b8aee5761e9",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Customer was registered\", function () {",
+									"    if (pm.expect(jsonData.errorCode).to.not.eql(null)) { // spara env-variabler endast om registreringen lyckas",
+									"        pm.environment.set(\"new_customer_id\", jsonData.id);",
+									"        pm.environment.set(\"new_customer_token\", jsonData.token);",
+									"    }",
+									"});",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"attributes\": [\r\n\r\n  ],\r\n  \"billing\": {\r\n    \"address\": \"string\",\r\n    \"billingAddress\": true,\r\n    \"bilstateOther\": \"string\",\r\n    \"city\": \"string\",\r\n    \"company\": \"string\",\r\n    \"country\": \"US\",\r\n    \"countryCode\": \"US\",\r\n    \"firstName\": \"Testkund1\",\r\n    \"lastName\": \"Testkundsson\",\r\n    \"latitude\": \"string\",\r\n    \"longitude\": \"string\",\r\n    \"phone\": \"string\",\r\n    \"postalCode\": \"string\",\r\n    \"stateProvince\": \"string\",\r\n    \"zone\": \"\"\r\n  },\r\n  \"delivery\": {\r\n    \"address\": \"string\",\r\n    \"billingAddress\": true,\r\n    \"bilstateOther\": \"string\",\r\n    \"city\": \"string\",\r\n    \"company\": \"string\",\r\n    \"country\": \"US\",\r\n    \"countryCode\": \"US\",\r\n    \"firstName\": \"string\",\r\n    \"lastName\": \"string\",\r\n    \"latitude\": \"string\",\r\n    \"longitude\": \"string\",\r\n    \"phone\": \"string\",\r\n    \"postalCode\": \"string\",\r\n    \"stateProvince\": \"string\",\r\n    \"zone\": \"\"\r\n  },\r\n  \"emailAddress\": \"test2@test.com\",\r\n  \"firstName\": \"string\",\r\n  \"groups\": [\r\n    {\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"id\": 0,\r\n  \"language\": \"en\",\r\n  \"lastName\": \"string\",\r\n  \"password\": \"password\",\r\n  \"provider\": \"string\",\r\n  \"rating\": 0,\r\n  \"ratingCount\": 0,\r\n  \"storeCode\": \"string\",\r\n  \"userName\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/customer/register?customer=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"register"
+							],
+							"query": [
+								{
+									"key": "customer",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logga in kund",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "12538f54-7130-4295-bd47-4ce1e1f91a7c",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"  ",
+									"pm.environment.set(\"new_customer_token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"password\",\n\t\"username\": \"test2@test.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/customer/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Radera kundkonto Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "38cec0d8-f61e-4c93-a325-24800b965111",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/private/customer/{{new_customer_id}}?token={{customer_token}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"customer",
+								"{{new_customer_id}}"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{customer_token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"protocolProfileBehavior": {}
 		}
 	],
