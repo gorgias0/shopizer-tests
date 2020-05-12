@@ -2,24 +2,13 @@
 
 describe("Test shopizer", function () {
     
+    const time = (new Date()).getTime();
+    const customerEmail = 'testan' + time + '@testsson.se';
 
     this.beforeEach('open shopizer', function () {
         const url = "http://localhost:8080/shop/"
         cy.visit(url);
     });
-
-    //Ej klar
-    it('Privata kunduppgifter', () => {
-
-        cy.url().should('include', '/shop');
-        cy.contains('Sign in').click({ force: true });
-        cy.url().should('include', 'customLogon');
-        cy.get('#signin_userName').type('test@gmail.com'); //Ska vara samma som i US7(?)
-        cy.get('#signin_password').type('12346');
-        cy.contains('Sign in').click({force: true});
-        //Assert på att det går fel
-
-     })
 
     it('Se produkter', () => {
 
@@ -82,8 +71,6 @@ describe("Test shopizer", function () {
 
     })
 
-
-
     it("Test shoppingcart", function() {
         cy.get('a[productid="4"]').click();
 
@@ -115,8 +102,7 @@ describe("Test shopizer", function () {
         cy.get('[name = "billing.firstName"]').type(firstName);
         cy.get('[name = "billing.lastName"]').type('Testsson');
         cy.get('[name = "billing.stateProvince"]').type('Teststaden');
-        const time = (new Date()).getTime();
-        cy.get('[name = "emailAddress"]').type('testan' + time + '@testsson.se');
+        cy.get('[name = "emailAddress"]').type(customerEmail);
         cy.get('[name = "password"]').type('password1');
         cy.get('#passwordAgain').type('password1');
         cy.contains('Create an account').click();
@@ -124,6 +110,18 @@ describe("Test shopizer", function () {
 
         cy.get('#customerAccount > a > span > span').should('have.text', firstName);
 
+
+    })
+
+    it('Privata kunduppgifter', () => {
+
+        cy.url().should('include', '/shop');
+        cy.contains('Sign in').click({ force: true });
+        cy.url().should('include', 'customLogon');
+        cy.get('#signin_userName').type(customerEmail);
+        cy.get('#signin_password').type('12346');
+        cy.get('#genericLogin-button').click({force: true});
+        cy.get('body').should('contain', 'Login Failed. Username or Password is incorrect.');
 
     })
 

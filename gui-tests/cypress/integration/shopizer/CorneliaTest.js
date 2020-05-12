@@ -1,37 +1,43 @@
 describe('My First Test', function () {
 
-    // this.beforeEach('open shopizer', function () {
-    //     const url = "http://localhost:8080/shop/"
-    //     cy.visit(url);
-    // });
+    const time = (new Date()).getTime();
+    const customerEmail = 'testan' + time + '@testsson.se';
 
-    it('Se butikens kunder', () => {
+    this.beforeEach('open shopizer', function () {
+        const url = "http://localhost:8080/shop/"
+        cy.visit(url);
+    });
 
-        cy.visit("http://localhost:8080/admin/logon.html");
-        cy.url().should('include', '/admin')
-        cy.get('#username').type('admin@shopizer.com ');
-        cy.get('#password').type('password');
-
-        cy.get('#formSubmitButton').click();
-        cy.url().should('include', '/home')
-
-        cy.contains('Customers').click({force: true});
-        cy.url().should('include', 'customers/list')
-        cy.get('h3').should('contain', 'Customer list');
-
-     })
-
+    
     it('Privata kunduppgifter', () => {
 
         cy.url().should('include', '/shop');
         cy.contains('Sign in').click({ force: true });
         cy.url().should('include', 'customLogon');
-        cy.get('#signin_userName').type('test@gmail.com'); //Ska vara samma som i US7(?)
+        cy.get('#signin_userName').type(customerEmail);
         cy.get('#signin_password').type('12346');
-        cy.contains('Sign in').click({force: true});
-        //Assert på att det går fel
+        cy.get('#genericLogin-button').click({force: true});
+        cy.get('body').should('contain', 'Login Failed. Username or Password is incorrect.');
 
-     })
+    })
+
+    // it('Se butikens kunder', () => {
+
+    //     cy.visit("http://localhost:8080/admin/logon.html");
+    //     cy.url().should('include', '/admin')
+    //     cy.get('#username').type('admin@shopizer.com ');
+    //     cy.get('#password').type('password');
+
+    //     cy.get('#formSubmitButton').click();
+    //     cy.url().should('include', '/home')
+
+    //     cy.contains('Customers').click({force: true});
+    //     cy.url().should('include', 'customers/list')
+    //     cy.get('h3').should('contain', 'Customer list');
+
+    //  })
+
+    
 
 
     // it('Se produkter', () => {
