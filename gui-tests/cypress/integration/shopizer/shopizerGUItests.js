@@ -42,8 +42,10 @@ describe("Test shopizer", function () {
 
     it('Göra ett köp utan att logga in', () => {
 
-        //Lägg produkt 1 i varukorg
-        cy.get('[productid = "1"]').click();
+        cy.contains('Handbags').click({ force: true });
+
+        //Lägg produkt 2 i varukorg
+        cy.get('[productid = "2"]').first().click();
 
         //assert att varukorgen fick en etta för hur många varor    
         cy.get('#miniCartSummary').should($el => expect($el.text().trim()).to.equal('1'));
@@ -61,15 +63,21 @@ describe("Test shopizer", function () {
         cy.get('[name = "customer.billing.address"]').type('Testvägen 5');
         cy.get('[name = "customer.billing.city"]').type('Teststaden');
         cy.get('[name = "customer.billing.postalCode"]').type('12345');
-        cy.get('[name = "customer.emailAddress"]').type('testan@testsson.se');
+        const email = 'testan@testsson.se'
+        cy.get('[name = "customer.emailAddress"]').type(email);
         cy.get('[name = "customer.billing.phone"]').type('0701234567');
         cy.get('#submitOrder').click();
 
         //Assertion på rätt url
         cy.url().should('include', '/shop/order/confirmation.html');
+        
+        //Assertion info om att mail har skickats till rätt emailadress    
+        cy.get('#main-content').should('contain', 'An email with your order details has been sent to ' + email);
+
+       });
 
 
-    })
+
 
     it("Test shoppingcart", function() {
         cy.get('a[productid="4"]').click();
@@ -148,17 +156,7 @@ describe("Test shopizer", function () {
 
    })
 
-   it('Admin login', () => {
-    cy.visit('http://localhost:8080/admin');
-    cy.get('#username').type('admin@shopizer.com');
-    cy.get('#password').type('password');
-    cy.get('#formSubmitButton').click();
-
-    //Assert sidan innehåller Recent orders
-    cy.get('body').should('contain', 'Recent orders');
-    
-
-   })
+   
 })
 
 
