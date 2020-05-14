@@ -2,11 +2,11 @@ describe("Test shopizer", function () {
 
     const url = "http://localhost:8080/admin/";
 
-    this.beforeEach('open shopizer', function () {    
+    this.beforeEach('open shopizer', function () {
         cy.visit(url);
     });
 
-    it('Se butikens kunder', () => {
+    it('US 10 Se butikens kunder', () => {
 
         cy.visit("http://localhost:8080/admin/logon.html");
         cy.url().should('include', '/admin')
@@ -16,18 +16,18 @@ describe("Test shopizer", function () {
         cy.get('#formSubmitButton').click();
         cy.url().should('include', '/home')
 
-        cy.contains('Customers').click({force: true});
+        cy.contains('Customers').click({ force: true });
         cy.url().should('include', 'customers/list')
         cy.get('h3').should('contain', 'Customer list');
 
-     });
+    });
 
-     it('Admin kan se lagda ordrar', () => {
+    it('US 5 Admin kan se lagda ordrar', () => {
 
         //Gå till shop och genomför ett köp 
         cy.visit("http://localhost:8080/shop/");
         cy.contains('Handbags').click({ force: true });
-        cy.get('.addToCart[productid = "2"]').first().click();  
+        cy.get('.addToCart[productid = "2"]').first().click();
         //assert att varukorgen fick en etta   
         cy.get('#miniCartSummary').should($el => expect($el.text().trim()).to.equal('1'));
         cy.contains('Checkout').click({ force: true });
@@ -43,22 +43,32 @@ describe("Test shopizer", function () {
 
         //Spara order id, logga in admin och kontrollera att det finns med. 
         cy.contains('Your order id is').invoke('text').then(($txt) => {
-        const orderID = $txt.replace(/\D/g,''); //Ta bort allt utom siffror och spara till orderID
-        
+            const orderID = $txt.replace(/\D/g, ''); //Ta bort allt utom siffror och spara till orderID
+
+            //logga in som admin
+            cy.visit(url);
+            cy.get('#username').type('admin@shopizer.com');
+            cy.get('#password').type('password');
+            cy.get('#formSubmitButton').click();
+
+            //Assert att sidan innehåller texten "Recent orders"
+            cy.get('body').should('contain', 'Recent orders');
+
+            //Assert att sparat orderID finns högst upp i id-kolumnen i tabellen med ordrar
+            cy.get('#isc_Vtable tr:nth-child(1) td:nth-child(1)').should('contain', orderID);
+        });
+
+    });
+
+    it('US 9 Admin login', () => {
+
         //logga in som admin
         cy.visit(url);
         cy.get('#username').type('admin@shopizer.com');
         cy.get('#password').type('password');
         cy.get('#formSubmitButton').click();
-    
-        //Assert att sidan innehåller texten "Recent orders"
-        cy.get('body').should('contain', 'Recent orders');
 
-        //Assert att sparat orderID finns högst upp i id-kolumnen i tabellen med ordrar
-        cy.get('#isc_Vtable tr:nth-child(1) td:nth-child(1)').should('contain',orderID); 
-       });
-
-       });
-
+        //Assert att url är rätt
+        cy.url().should('include', 'admin/home');
     })
-
+});
