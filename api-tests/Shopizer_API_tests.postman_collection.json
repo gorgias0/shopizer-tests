@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "41fa942c-14f0-48c3-af87-a227c9bb6341",
-		"name": "Shopizer API Test Demo",
+		"name": "Shopizer API-tester",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -96,7 +96,7 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Se Produkter",
+			"name": "US_6 Produkter",
 			"item": [
 				{
 					"name": "Lista alla produkter",
@@ -112,8 +112,8 @@
 									"",
 									"var jsonData = pm.response.json();",
 									"",
-									"pm.test(\"10 records found\", function () {",
-									"    pm.expect(jsonData.recordsTotal).to.eql(10);",
+									"pm.test(\"At least 10 records found\", function () {",
+									"    pm.expect(jsonData.recordsTotal).to.be.at.least(10);",
 									"});",
 									"",
 									"pm.test(\"Body contains: Vintage beach bag\", function () {",
@@ -157,7 +157,7 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Se ordrar & kunder (admin)",
+			"name": "US_5_9_10 Admin",
 			"item": [
 				{
 					"name": "Se alla ordrar",
@@ -238,12 +238,52 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Se admin konto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "87ddd4c3-95c5-4130-bfef-7499239e34a1",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"firstName is Administrator\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.firstName).to.eql(\"Administrator\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/private/user/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "TB-62 Lägg vara i Kundkorg",
+			"name": "US_8_2 Kundkorg",
 			"item": [
 				{
 					"name": "Lägg produkt id4 i kundkorg",
@@ -712,7 +752,7 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "TB-66 Privat kundkonto",
+			"name": "US_7_3 Kundkonto",
 			"item": [
 				{
 					"name": "Skapa kundkonto",
