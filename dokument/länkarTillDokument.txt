@@ -1,0 +1,5 @@
+Länk till user stories/testfall:
+https://docs.google.com/spreadsheets/d/1z9qgNvjxFRJQceke5SPjT1DG6lBIyaflmyezCwcKE5I/edit?usp=sharing
+
+Länk till testplan:
+https://docs.google.com/document/d/1Q7NZuIPU6xKHnxKyy8U3NZBpyGYShI6mrYDiXCItPWI/edit?usp=sharing
