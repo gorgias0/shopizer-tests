@@ -4,6 +4,9 @@ describe("Test shopizer", function () {
     
     const time = (new Date()).getTime();
     const customerEmail = 'testan' + time + '@testsson.se';
+    const customerPassword = 'password1';
+    const firstName = 'Testan';
+
 
     this.beforeEach('open shopizer', function () {
         const url = "http://localhost:8080/shop/"
@@ -106,13 +109,12 @@ describe("Test shopizer", function () {
     it('creates account', () => {
         cy.contains('My Account').click();
         cy.get('#registerLink').click();
-        let firstName = 'Testan'
         cy.get('[name = "billing.firstName"]').type(firstName);
         cy.get('[name = "billing.lastName"]').type('Testsson');
         cy.get('[name = "billing.stateProvince"]').type('Teststaden');
         cy.get('[name = "emailAddress"]').type(customerEmail);
-        cy.get('[name = "password"]').type('password1');
-        cy.get('#passwordAgain').type('password1');
+        cy.get('[name = "password"]').type(customerPassword);
+        cy.get('#passwordAgain').type(customerPassword);
         cy.contains('Create an account').click();
         cy.url().should('include', '/shop/customer/dashboard.html');
 
@@ -121,6 +123,28 @@ describe("Test shopizer", function () {
 
     })
 
+    it('Spara varukorg vid inloggning', () => {
+
+        //Lägg produkt 1 i varukorg
+        cy.contains('Handbags').first().click({force:true});
+        cy.get('.addToCart[productid = "4"]').first().click();
+        //Assert att varukorgen fick en 1a för antal varor    
+        cy.get('#miniCartSummary').should($el => expect($el.text().trim()).to.equal('1')); 
+        //Kund loggas ut
+        cy.contains('Logout').click();
+        //Assert att kundnamn inte visas efter utloggning
+        cy.get('#customerAccount > a > span').should('not.have.text', firstName);
+        //Logga in kund
+        cy.contains('Sign in').click({force:true});
+        cy.get('#signin_userName').type(customerEmail);
+        cy.get('#signin_password').type(customerPassword);
+        cy.get('#genericLogin-button').click();
+        //Assert kundnamn visa 
+        cy.get('#customerAccount > a > span > span').should('have.text', firstName);
+        //Assert att varukorgen fortfarande innehåller en 1a för antal varor
+        cy.get('#miniCartSummary').should($el => expect($el.text().trim()).to.equal('1')); 
+    
+    })
     it('Privata kunduppgifter', () => {
 
         cy.url().should('include', '/shop');
@@ -145,8 +169,8 @@ describe("Test shopizer", function () {
         cy.get('#registration_country').select('Canada');
         cy.get('[name = "billing.zone"]').select('Ontario');
         cy.get('[name = "emailAddress"]').type('test@gmail.com'); 
-        cy.get('[name = "password"]').type('password1');
-        cy.get('#passwordAgain').type('password1');
+        cy.get('[name = "password"]').type('Password1');
+        cy.get('#passwordAgain').type('Password1');
 
         // click submit button
         cy.contains('Create an account').click();
