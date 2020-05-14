@@ -13,7 +13,7 @@ describe("Test shopizer", function () {
         cy.visit(url);
     });
 
-    it('Se produkter', () => {
+    it('US 6 Se produkter', () => {
 
         //ASSERT PÅ STARTSIDAN
         cy.url().should('include', '/shop/');
@@ -43,7 +43,7 @@ describe("Test shopizer", function () {
     })
 
 
-    it('Göra ett köp utan att logga in', () => {
+    it('US 1 4 Göra ett köp utan att logga in', () => {
 
         cy.contains('Handbags').click({ force: true });
 
@@ -82,7 +82,7 @@ describe("Test shopizer", function () {
 
 
 
-    it("Test shoppingcart", function() {
+    it("US 2 Test shoppingcart", function() {
         cy.get('a[productid="4"]').click();
 
         // one item in cart
@@ -106,7 +106,7 @@ describe("Test shopizer", function () {
 
     });
 
-    it('creates account', () => {
+    it('US 7 creates account', () => {
         cy.contains('My Account').click();
         cy.get('#registerLink').click();
         cy.get('[name = "billing.firstName"]').type(firstName);
@@ -123,7 +123,7 @@ describe("Test shopizer", function () {
 
     })
 
-    it('Spara varukorg vid inloggning', () => {
+    it('US 8 Spara varukorg vid inloggning', () => {
 
         //Lägg produkt 1 i varukorg
         cy.contains('Handbags').first().click({force:true});
@@ -145,7 +145,7 @@ describe("Test shopizer", function () {
         cy.get('#miniCartSummary').should($el => expect($el.text().trim()).to.equal('1')); 
     
     })
-    it('Privata kunduppgifter', () => {
+    it('US 3 Privata kunduppgifter', () => {
 
         cy.url().should('include', '/shop');
         cy.contains('Sign in').click({ force: true });
