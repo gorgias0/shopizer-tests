@@ -1,3 +1,2 @@
 cd gui-tests
-npm install cypress --save-dev
-node_modules\.bin\cypress run --spec 'cypress\integration\shopizer\shopizerGUItests.js'
+npm install cypress && node_modules\.bin\cypress run --spec 'cypress\integration\shopizer\shop*'
